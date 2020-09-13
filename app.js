@@ -8,13 +8,13 @@ var logger = require('morgan');
 // var usersRouter = require('./routes/users');
 
 const indexRouter = require('./app_server/routes/index');
-const userRouter = require('./app_server/routes/users');
+const usersRouter = require('./app_server/routes/users');
 
 var app = express();
 
 // view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'pug');
+// app.set('views', path.join(__dirname, 'views'));
+app.set('views', path.join(__dirname, 'app_server', 'views'));
 
 app.use(logger('dev'));
 app.use(express.json());
