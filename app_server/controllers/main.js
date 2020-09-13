@@ -1,9 +1,8 @@
+/* GET hompage */
 const index = (req, res) => {
-a  res.render("index", {
-    title: "Express by 2018250001 강명조",
-  });
+    res.render('index', {title : 'Express'})
 };
 
-module.exports = {
-  index,
+module.exports ={
+    index
 };
