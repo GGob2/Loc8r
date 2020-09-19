@@ -7,7 +7,7 @@ const locationInfo = (req, res) => {
 };
 
 const addReview = (req, res) => {
-    res.render('index', {title : 'Add review by 2018250001 강명조'});
+    res.render('location-review-form', {title : 'Add review by 2018250001 강명조'});
 };
 
 module.exports = {
