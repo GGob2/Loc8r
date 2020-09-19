@@ -1,5 +1,5 @@
 const homelist = (req, res) => {
-    res.render('index', {title : 'Home by 2018250001 강명조'});
+    res.render('location-list', {title : 'Home by 2018250001 강명조'});
 };
 
 const locationInfo = (req, res) => {
