@@ -3,7 +3,7 @@ const homelist = (req, res) => {
 };
 
 const locationInfo = (req, res) => {
-    res.render('index', {title : 'Location Info Home by 2018250001 강명조'});
+    res.render('location-info', {title : 'Location Info Home by 2018250001 강명조'});
 };
 
 const addReview = (req, res) => {
