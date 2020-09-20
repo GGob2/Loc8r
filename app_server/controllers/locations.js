@@ -50,7 +50,7 @@ const locationInfo = (req, res) => {
         address: '서울특별시 관악구 호암로 100',
         rating: 3,
         facilities: ['Hot drinks', 'Food', 'Premium wifi'],
-        coords: {lat: 51.455041, lng: -0.9690884},
+        coords: {lat: 37.011639, lng: 127.264222},
         openingTimes: [
           {
             days: 'Monday - Friday',
