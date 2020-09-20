@@ -71,7 +71,7 @@ const locationInfo = (req, res) => {
         address: '경기도 안성시 안성2동 비룡 5길 18',
         rating: 3,
         facilities: ['Hot drinks', 'Food', 'Premium wifi'],
-        coords: {lat: 37.0430891, lng: 127.6512656},
+        coords: {lat: 37.012924, lng: 127.260911},
         openingTimes: [
           {
             days: 'Monday - Friday',
