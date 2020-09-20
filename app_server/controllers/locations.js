@@ -10,24 +10,45 @@ const homelist = (req, res) => {
       locations: [
         {
           name: 'Starcups',
-          address: '서울특별시 관악구 호암로 100',
+          address: '경기도 안성시 안성2동 비룡 5길 18',
           rating: 3,
           facilities: ['Hot drinks', 'Food', 'Premium wifi'],
-          distance: '100m'
+          distance: '200m'
         },
         {
           name: 'Cafe Hero',
-          address: '서울특별시 관악구 호암로 300',
+          address: '경기도 안성시 당왕동 번지 1층 551-4',
           rating: 4,
           facilities: ['Hot drinks', 'Food', 'Premium wifi'],
-          distance: '200m'
+          distance: '67m'
         },
         {
           name: 'Burger Queen',
           address: '서울특별시 관악구 봉천동 남부순환로 1934',
           rating: 2,
           facilities: ['Food', 'Premium wifi'],
-          distance: '250m'
+          distance: '66.3km'
+        },
+        {
+          name: '카페 디플로르',
+          address: '경기도 안성시 안성2동 비룡 5길 19',
+          rating: 5,
+          facilities: ['Food', 'Premium wifi', 'Bingsoo'],
+          distance: '230m'
+        },
+        {
+          name: '신의한술',
+          address: '경기도 안성시 비룡 3길 12 1층',
+          rating: 3,
+          facilities: ['Food', 'Premium wifi', 'Rum', 'Beer'],
+          distance: '10m'
+        },
+        {
+          name: '안성 스타벅스 DT점',
+          address: '서울특별시 관악구 봉천동 남부순환로 1934',
+          rating: 4,
+          facilities: ['Food', 'Premium wifi, Cake'],
+          distance: '900m'
         }
       ]
     }
@@ -47,10 +68,10 @@ const locationInfo = (req, res) => {
       },
       location: {
         name: 'Starcups',
-        address: '서울특별시 관악구 호암로 100',
+        address: '경기도 안성시 안성2동 비룡 5길 18',
         rating: 3,
         facilities: ['Hot drinks', 'Food', 'Premium wifi'],
-        coords: {lat: 37.011639, lng: 127.264222},
+        coords: {lat: 37.0430891, lng: 127.6512656},
         openingTimes: [
           {
             days: 'Monday - Friday',
