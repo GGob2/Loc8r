@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
-const dbURI = "mongodb://localhost:27017/Loc8r";
+// const dbURI = "mongodb://localhost:27017/Loc8r";
+const dbURI = "mongodb+srv://my_atlas_user:rkdaudwh13@cluster0.epki4.mongodb.net/Loc8r";
 mongoose.connect(dbURI, { useNewUrlParser: true });
 
 mongoose.connection.on("connected", function () {
@@ -11,6 +12,7 @@ mongoose.connection.on("error", function (err) {
 mongoose.connection.on("disconnected", function () {
   console.log("Mongoose disconnected");
 });
+
 
 const gracefulShutdown = function (msg, callback) {
   mongoose.connection.close(function () {
