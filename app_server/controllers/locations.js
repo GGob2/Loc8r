@@ -1,4 +1,4 @@
-const Location = require("../models/locations")
+const Location = require("../../app_api/models/locations")
 
 const homelist = (req, res) => {
   
