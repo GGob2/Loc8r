@@ -3,13 +3,16 @@ const Loc = mongoose.model("Location");
 
 const locationsReadOne = (req, res) => {
   Loc.findById(req.params.locationid).exec((err, location) => {
-    console.log("data   " + req.params.locationid + " " + location);
-    console.log(mongoose.connection);
-
+    if (!location) {
+      return res
+        .status(404)
+        .json({ message: "location not found", name: "2018250001 - 강명조" });
+    } else if (err) {
+      return res.status(404).json(err);
+    }
     res.status(200).json(location);
   });
 };
-
 
 // placeholder 함수 --> 아무기능도 하지 않음
 const locationsListByDistance = (req, res) => {};
