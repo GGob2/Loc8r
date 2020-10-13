@@ -30,11 +30,14 @@ const reviewSchema = new mongoose.Schema({
 });
 
 const locationSchema = new mongoose.Schema({
-  name: String,
+  name: {
+    type: String,
+    required: true,
+  },
   address: String,
   rating: {
     type: Number,
-    default: 0,
+    'default': 0,
     min: 0,
     max: 5,
   },
@@ -42,13 +45,13 @@ const locationSchema = new mongoose.Schema({
   facilities: [String],
 
   coords: {
-    type: [Number],
-    index: "2dsphere",
+    type: { type: String },
+    coordinates:[Number]
   },
   openingTimes: [openingTimeSchema],
   reviews: [reviewSchema],
 });
 
-locationSchema.index({ coords: "2dsphere" });
+// locationSchema.index({ coords: "2dsphere" });
 
 module.exports = mongoose.model("Location", locationSchema);
