@@ -36,12 +36,12 @@ const homelist = (req, res) => {
     method: "GET",
     json: {},
     qs: {
-      lng: 127.2630220,
+      lng: 127.263022,
       lat: 37.0087091,
       maxDistance: 200000,
     },
   };
-  request(requestOptions, (err, {statusCode}, body) => {
+  request(requestOptions, (err, { statusCode }, body) => {
     let data = [];
     if (statusCode === 200 && body.length) {
       data = body.map((item) => {
@@ -74,7 +74,7 @@ const renderHomepage = (req, res, responseBody) => {
       "Looking for wifi and a seat? Loc8r helps you find places \
       to work when out and about. Perhaps with coffee, cake or a pint? Let Loc8r help you find the place you're looking for.",
     locations: responseBody,
-    message
+    message,
     // [
     //   {
     //     name: "Starcups",
@@ -134,11 +134,12 @@ const formatDistance = (distance) => {
   return thisDistance + unit;
 };
 
-const locationInfo = (req, res) => {
+const renderDetailPage = (req, res, location) => {
+  console.log(" ****** " +location+" *******" )
   res.render("location-info", {
-    title: "Starcups",
+    title: location.name,
     pageHeader: {
-      title: "Starcups",
+      title: location.name,
     },
     sidebar: {
       context:
@@ -146,47 +147,64 @@ const locationInfo = (req, res) => {
       callToAction:
         "If you've been and you like it - or if you don't - please leave a review to help other people just like you.",
     },
-    location: {
-      name: "Starcups",
-      address: "경기도 안성시 안성2동 비룡 5길 18",
-      rating: 3,
-      facilities: ["Hot drinks", "Food", "Premium wifi"],
-      coords: { lat: 37.012924, lng: 127.260911 },
-      openingTimes: [
-        {
-          days: "Monday - Friday",
-          opening: "7:00am",
-          closing: "7:00pm",
-          closed: false,
-        },
-        {
-          days: "Saturday",
-          opening: "8:00am",
-          closing: "5:00pm",
-          closed: false,
-        },
-        {
-          days: "Sunday",
-          closed: true,
-        },
-      ],
-      reviews: [
-        {
-          author: "Simon Holmes",
-          rating: 5,
-          timestamp: "16 July 2013",
-          reviewText:
-            "What a great place. I can't say enough good things about it.",
-        },
-        {
-          author: "Charlie Chaplin",
-          rating: 3,
-          timestamp: "16 June 2013",
-          reviewText:
-            "It was okay. Coffee wasn't great, but the wifi was fast.",
-        },
-      ],
-    },
+    location: location,
+    // {
+    //   name: "Starcups",
+    //   address: "경기도 안성시 안성2동 비룡 5길 18",
+    //   rating: 3,
+    //   facilities: ["Hot drinks", "Food", "Premium wifi"],
+    //   coords: { lat: 37.012924, lng: 127.260911 },
+    //   openingTimes: [
+    //     {
+    //       days: "Monday - Friday",
+    //       opening: "7:00am",
+    //       closing: "7:00pm",
+    //       closed: false,
+    //     },
+    //     {
+    //       days: "Saturday",
+    //       opening: "8:00am",
+    //       closing: "5:00pm",
+    //       closed: false,
+    //     },
+    //     {
+    //       days: "Sunday",
+    //       closed: true,
+    //     },
+    //   ],
+    //   reviews: [
+    //     {
+    //       author: "Simon Holmes",
+    //       rating: 5,
+    //       timestamp: "16 July 2013",
+    //       reviewText:
+    //         "What a great place. I can't say enough good things about it.",
+    //     },
+    //     {
+    //       author: "Charlie Chaplin",
+    //       rating: 3,
+    //       timestamp: "16 June 2013",
+    //       reviewText:
+    //         "It was okay. Coffee wasn't great, but the wifi was fast.",
+    //     },
+    //   ],
+    // },
+  });
+};
+const locationInfo = (req, res) => {
+  const path = `/api/locations/${req.params.locationid}`;
+  const requestOptions = {
+    url: `${apiOptions.server}${path}`,
+    method: "GET",
+    json: {},
+  };
+  request(requestOptions, (err, response, body) => {
+    const data = body;
+    data.coords = {
+      lng: body.coords[0],
+      lat: body.coords[1],
+    };
+    renderDetailPage(req, res, data);
   });
 };
 
