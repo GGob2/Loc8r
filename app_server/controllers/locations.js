@@ -11,7 +11,7 @@ if (process.env.NODE_ENV === "production") {
 }
 
 const requestOptions = {
-  url: 'http://yourapi.com/api/path',
+  url: "http://yourapi.com/api/path",
   method: "GET",
   json: {},
   qs: {
@@ -36,17 +36,34 @@ const homelist = (req, res) => {
     method: "GET",
     json: {},
     qs: {
-      lng: 127.2630220,
+      lng: 127.263022,
       lat: 37.0087091,
       maxDistance: 200000,
     },
   };
   request(requestOptions, (err, response, body) => {
-    renderHomepage(req, res, body);
+    let data = [];
+    if (statusCode === 200 && body.length) {
+      data = body.map((item) => {
+        item.distance = formatDistance(item.distance);
+        return item;
+      });
+    }
+    renderHomepage(req, res, data);
   });
 };
 
 const renderHomepage = (req, res, responseBody) => {
+  let message = null;
+  if (!(responseBody instanceof Array)) {
+    message = "API lookup error";
+    responseBody = [];
+  } else {
+    if (!responseBody.length) {
+      message = "No places found nearby";
+    }
+  }
+
   res.render("locations-list", {
     title: "Loc8r - find a place to work with wifi",
     pageHeader: {
@@ -57,6 +74,7 @@ const renderHomepage = (req, res, responseBody) => {
       "Looking for wifi and a seat? Loc8r helps you find places \
       to work when out and about. Perhaps with coffee, cake or a pint? Let Loc8r help you find the place you're looking for.",
     locations: responseBody,
+    message
     // [
     //   {
     //     name: "Starcups",
@@ -104,7 +122,17 @@ const renderHomepage = (req, res, responseBody) => {
   });
 };
 
-
+const formatDistance = (distance) => {
+  let thisDistance = 0;
+  let unit = "m";
+  if (distance > 1000) {
+    thisDistance = parseFloat(distance / 1000).toFixed(1);
+    unit = "km";
+  } else {
+    thisDistance = Math.floor(distance);
+  }
+  return thisDistance + unit;
+};
 
 const locationInfo = (req, res) => {
   res.render("location-info", {
