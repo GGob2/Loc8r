@@ -36,12 +36,12 @@ const homelist = (req, res) => {
     method: "GET",
     json: {},
     qs: {
-      lng: 127.263022,
+      lng: 127.2630220,
       lat: 37.0087091,
       maxDistance: 200000,
     },
   };
-  request(requestOptions, (err, response, body) => {
+  request(requestOptions, (err, {statusCode}, body) => {
     let data = [];
     if (statusCode === 200 && body.length) {
       data = body.map((item) => {
