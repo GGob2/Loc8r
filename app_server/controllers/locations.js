@@ -135,7 +135,6 @@ const formatDistance = (distance) => {
 };
 
 const renderDetailPage = (req, res, location) => {
-  console.log(" ****** " + location + " *******");
   res.render("location-info", {
     title: location.name,
     pageHeader: {
@@ -147,7 +146,7 @@ const renderDetailPage = (req, res, location) => {
       callToAction:
         "If you've been and you like it - or if you don't - please leave a review to help other people just like you.",
     },
-    location: location,
+    location,
     // {
     //   name: "Starcups",
     //   address: "경기도 안성시 안성2동 비룡 5길 18",
@@ -215,39 +214,35 @@ const getLocationInfo = (req, res, callback) => {
 
 const doAddReview = (req, res) => {
   const locationid = req.params.locationid;
-  const path = `/api/locations/${locationid}/reviews`;
+  const path = `/api/locations/${locationid}/reviews`
   const postdata = {
     author: req.body.name,
     rating: parseInt(req.body.rating, 10),
-    reviewText: req.body.review,
-  };
+    reviewText: req.body.review
+  }
   const requestOptions = {
     url: `${apiOptions.server}${path}`,
-    method: "POST",
-    json: postdata,
-  };
-  if (!postdata.author || !postdata.rating || !postdata.reviewText) {
-    res.redirect(`/location/${locationid}/review/new?err=val`);
-  } else {
-    request(requestOptions, (err, { statusCode }, { _message }) => {
-      if (statusCode == 201) {
-        res.redirect(`/location/${locationid}`);
-      } else if (
-        statusCode === 400 &&
-        _message &&
-        _message === "Location validation failed"
-      ) {
-        res.redirect(`/location/${locationid}/review/new?err=val`);
-      } else {
+    method: 'POST',
+    json: postdata
+  }
+  if(!postdata.author || !postdata.rating || !postdata.reviewText){
+    res.redirect(`/location/${locationid}/review/new?err=val`)
+  }else{
+    request(requestOptions, (err, {statusCode}, {name}) => {
+      if(statusCode == 201){
+        res.redirect(`/location/${locationid}`)
+      }else if (statusCode === 400 && name && name === 'Validation failed'){
+        res.redirect(`/location/${locationid}/review/new?err=val`)
+      }else{
         showError(req, res, statusCode);
       }
-    });
+    })
   }
 };
 
 const locationInfo = (req, res) => {
-  getLocationInfo(req, res, (req, res, responseData) =>
-    renderDetailPage(req, res, responseData)
+  getLocationInfo(req, res,
+     (req, res, responseData) => renderDetailPage(req, res, responseData)
   );
 };
 
@@ -268,15 +263,18 @@ const showError = (req, res, status) => {
   });
 };
 
-const renderReviewForm = (req, res) => {
+const renderReviewForm = function (req, res, {name}) {
   res.render("location-review-form", {
-    title: "Review Starcups on Loc8r",
-    pageHeader: { title: "Review Starcups" },
+    title: `Review ${name} on Loc8r`,
+    pageHeader: { title: `Review ${name}` },
+    error: req.query.err
   });
 };
 
 const addReview = (req, res) => {
-  renderReviewForm(req, res);
+  getLocationInfo(req, res,
+     (req, res, responseData) => renderReviewForm(req, res, responseData)
+  );
 };
 
 module.exports = {
