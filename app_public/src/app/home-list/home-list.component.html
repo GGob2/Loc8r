@@ -1,21 +1,27 @@
-<div class="card">
-    <div class="card-block">
-        <h4>
-            <a href="/location/5f7064b6419ed2739cb738f0">Cafedeflore</a>
-            <small>&nbsp;    
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="far fa-star"></i>
-                <i class="far fa-star"></i>
-            </small>
-                <span class="badge badge-pill badge-default float-right">505m</span>
-        </h4>
-        <p class="address">경기도 안성시 비룡5길 18</p>
-        <div class="facilities">
-            <span class="badge badge-warning">Hot drinks</span>
-            <span class="badge badge-warning">Food</span>
-            <span class="badge badge-warning">Premium wifi</span>
-        </div>
+<!-- <div class="error">{{ message }}</div> -->
+<div class="card" *ngFor="let location of locations">
+  <div class="card-block">
+    <h4>
+      <a href="/location/{{ location._id }}">{{ location.name }}</a>
+      <small
+        >&nbsp;
+        <i class="fa{{ location.rating < 1 ? 'r' : 's' }} fa-star"></i>
+        <i class="fa{{ location.rating < 2 ? 'r' : 's' }} fa-star"></i>
+        <i class="fa{{ location.rating < 3 ? 'r' : 's' }} fa-star"></i>
+        <i class="fa{{ location.rating < 4 ? 'r' : 's' }} fa-star"></i>
+        <i class="fa{{ location.rating < 5 ? 'r' : 's' }} fa-star"></i>
+      </small>
+      <span class="badge badge-pill badge-default float-right"
+        >{{ location.distance | distance }}</span
+      >
+    </h4>
+    <p class="address">{{ location.address | uppercase }}</p>
+    <div class="facilities">
+      <span
+        *ngFor="let facility of location.facilities"
+        class="badge badge-warning"
+        >{{ facility }}</span
+      >
     </div>
+  </div>
 </div>
