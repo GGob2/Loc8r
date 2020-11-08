@@ -33,6 +33,7 @@ app.use('/api', (req, res, next) => {
   Content-Type, Accept, Authorization');
   next();
 });
+app.use('/api', apiRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
