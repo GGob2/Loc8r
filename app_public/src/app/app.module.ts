@@ -13,6 +13,7 @@ import { SidebarComponent } from './sidebar/sidebar.component';
 import { HtmlLineBreaksPipe } from './html-line-breaks.pipe';
 import { RatingStarsComponent } from './rating-stars/rating-stars.component';
 
+
 @NgModule({
   declarations: [
     HomeListComponent,
