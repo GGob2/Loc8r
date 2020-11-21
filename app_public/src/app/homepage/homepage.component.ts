@@ -17,10 +17,10 @@ export class HomepageComponent implements OnInit {
       title: 'Loc8r',
       strapline: 'Find places to work with wifi near you!'
     },
-    sidebar: 'Looking for wifi and a seat? Loc8r helps you \
-    find places to work when out and about. Perhaps with coffee, \
-    cake or a pint? Let Loc8r help you find the place you\'re \
-    looking for.'
+    sidebar: 'is on Loc8r because it has accessible wifi and space \
+    to sit down with your laptop and get some work done. \n\n If \
+    you\'ve been and you like it - or if you don\'t - please \
+    leave a review to help other people just like you.'
   };
 
 }
