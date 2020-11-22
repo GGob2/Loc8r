@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Location } from './home-list/home-list.component';
+
 // import { runInThisContext } from 'vm';
 
 @Injectable({
@@ -33,6 +34,16 @@ export class Loc8rDataService {
         .then(response => response as Location)
         .catch(this.handleError);
   }
+
+  public addReviewByLocationId(locationId: string, formData: any): Promise<any> {
+    const url: string = `${this.apiBaseUrl}/locations/${locationId}/reviews`;
+    return this.http
+      .post(url, formData)
+      .toPromise()
+      .then(response => response as any)
+      .catch(this.handleError);
+  }
+
 
   private handleError(error: any): Promise<any> {
     console.error('Something has gone wrong', error);

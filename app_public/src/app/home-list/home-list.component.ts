@@ -3,13 +3,13 @@ import { Loc8rDataService } from '../loc8r-data.service';
 import { GeolocationService } from '../geolocation.service';
 
 export class Location {
-  _id: String;
-  name: String;
+  _id: string;
+  name: string;
   distance:number;
-  address: String;
+  address: string;
   rating:number;
-  facilities: String[];
-  reviews: string[];
+  facilities: string[];
+  reviews: any[];
   coords: number[];
   openingTimes: Date[];
 }
