@@ -3,13 +3,17 @@ import { Loc8rDataService } from '../loc8r-data.service';
 import { GeolocationService } from '../geolocation.service';
 
 export class Location {
-  _id: string;
-  name: string;
-  distance: number;
-  address: string;
-  rating: number;
-  facilities: string[];
+  _id: String;
+  name: String;
+  distance:number;
+  address: String;
+  rating:number;
+  facilities: String[];
+  reviews: string[];
+  coords: number[];
+  openingTimes: Date[];
 }
+
 @Component({
   selector: 'app-home-list',
   templateUrl: './home-list.component.html',

@@ -1,3 +1,4 @@
+import { Location } from '../home-list/home-list.component';
 import { Component, OnInit, Input } from '@angular/core';
 
 @Component({

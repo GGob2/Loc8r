@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Loc8rDataService } from '../loc8r-data.service';
 import { Location } from '../home-list/home-list.component';
 import { ActivatedRoute, ParamMap } from '@angular/router';
-import { switchMap, switchMapTo } from 'rxjs/operators';
+import { switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-details-page',
@@ -10,6 +10,7 @@ import { switchMap, switchMapTo } from 'rxjs/operators';
   styleUrls: ['./details-page.component.css'],
 })
 export class DetailsPageComponent implements OnInit {
+  
   constructor(
     private loc8rDataService: Loc8rDataService,
     private route: ActivatedRoute
@@ -26,12 +27,10 @@ export class DetailsPageComponent implements OnInit {
       )
       .subscribe((newLocation: Location) => {
         this.newLocation = newLocation;
-        this.pageContent.header.title = newLocation.name;
+        this.pageContent.header.title = `${newLocation.name}`;
         this.pageContent.sidebar = `${newLocation.name} is on Loc8r
-        because it has accessible wifi and space to sit down with
-        your laptop and get some work done.\n\nIf you\'ve been and
-        you like it - or if you don\'t - please leave a review to 
-        help other people just like you.`; 
+        because it has accessible wifi and space to sit down with your laptop and get some work done.\n\nIf you\'ve been and
+        you like it - or if you don\'t - please leave a review to help other people just like you.`; 
       });
   }
 
