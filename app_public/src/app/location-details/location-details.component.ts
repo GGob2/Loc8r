@@ -9,9 +9,19 @@ import { Component, OnInit, Input } from '@angular/core';
 export class LocationDetailsComponent implements OnInit {
 
   @Input() location: Location;
+
+  public newReview = {
+    author : '',
+    rating: 5,
+    reviewText: ''
+  };
+
   public googleAPIKey: string= 'AIzaSyBTBlWYHaxm8k4XGybAnFimKYk-InmVj6o';
+
   constructor() { }
 
+  public formVisible : boolean = false;
+  
   ngOnInit(): void {
   }
 

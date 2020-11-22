@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 // import { AppComponent } from './app.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HomeListComponent } from './home-list/home-list.component';
 import { DistancePipe } from './distance.pipe';
 import { RouterModule } from '@angular/router';
@@ -35,6 +36,8 @@ import { MostRecentFirstPipe } from './most-recent-first.pipe';
   imports: [
     BrowserModule,
     HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule,
     RouterModule.forRoot([
       {
         path: '',
