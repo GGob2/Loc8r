@@ -4,7 +4,7 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-const favicon = require('serve-favicon');
+// const favicon = require('serve-favicon');
 const bodyParser = require('body-parser');
 const passport = require('passport');
 require('./app_api/models/db');
@@ -31,6 +31,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'app_public', 'build')));
 app.use(passport.initialize());
 
+app.use('/api', apiRouter);
 // app.use('/', indexRouter);
 app.use('/users', usersRouter);
 // app.use('/api', apiRouter);
@@ -40,10 +41,17 @@ app.use('/api', (req, res, next) => {
   Content-Type, Accept, Authorization');
   next();
 });
-app.use('/api', apiRouter);
+
 
 app.get(/(\/about)|(\/location\/[a-z0-9]{24})/, function(req, res, next) {
   res.sendFile(path.join(__dirname, 'app_public', 'build', 'index.html'));
+});
+
+
+app.use((err, req, res, next) => {
+  if(err.name === 'UnauthorizedError') {
+    res.status(401).json({"message": err.name + ": " + err.message});
+  }
 });
 
 // catch 404 and forward to error handler

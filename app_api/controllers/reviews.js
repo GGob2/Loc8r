@@ -84,20 +84,22 @@ const doAddReview = (req, res, location) => {
 };
 
 const reviewsCreate = (req, res) => {
-  const locationId = req.params.locationid;
-  if (locationId) {
-    Loc.findById(locationId)
-      .select("reviews")
-      .exec((err, location) => {
-        if (err) {
-          res.status(400).json(err);
-        } else {
-          doAddReview(req, res, location);
-        }
-      });
-  } else {
-    res.status(404).json({ message: "Location not found" });
-  }
+  getAuthor(req, res, (req, res, userName) => {
+    const locationId = req.params.locationid;
+    if (locationId) {
+      Loc.findById(locationId)
+        .select("reviews")
+        .exec((err, location) => {
+          if (err) {
+            res.status(400).json(err);
+          } else {
+            doAddReview(req, res, location, userName);
+          }
+        });
+    } else {
+      res.status(404).json({ message: "Location not found" });
+    }
+  });
 };
 
 const reviewsUpdateOne = (req, res) => {
