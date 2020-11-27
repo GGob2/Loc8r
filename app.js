@@ -4,7 +4,11 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+const favicon = require('serve-favicon');
+const bodyParser = require('body-parser');
+const passport = require('passport');
 require('./app_api/models/db');
+require('./app_api/config/passport');
 
 // var indexRouter = require('./routes/index');
 // var usersRouter = require('./routes/users');
@@ -25,6 +29,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'app_public', 'build')));
+app.use(passport.initialize());
 
 // app.use('/', indexRouter);
 app.use('/users', usersRouter);
