@@ -1,6 +1,24 @@
 const mongoose = require("mongoose");
 const Loc = mongoose.model("Location");
 
+const User = mongoose.model("User");
+
+const getAuthor = (req, res, callback) => {
+  if (req.payload && req.payload.email) {
+    User.findOne({ email: req.payload.email }).exec((err, user) => {
+      if (!user) {
+        return res.status(404).json({ message: "User not found" });
+      } else if (err) {
+        console.log(err);
+        return res.status(404).json(err);
+      }
+      callback(req, res, user.name);
+    });
+  } else {
+    return res.status(404).json({ message: "User not found" });
+  }
+};
+
 const reviewsReadOne = (req, res) => {
   Loc.findById(req.params.locationid)
     .select("name reviews")
@@ -61,11 +79,11 @@ const updateAverageRating = (locationId) => {
     });
 };
 
-const doAddReview = (req, res, location) => {
+const doAddReview = (req, res, location, author) => {
   if (!location) {
     res.status(404).json({ message: "Location not found" });
   } else {
-    const { author, rating, reviewText } = req.body;
+    const { rating, reviewText } = req.body;
     location.reviews.push({
       author,
       rating,
@@ -142,11 +160,9 @@ const reviewsUpdateOne = (req, res) => {
 const reviewsDeleteOne = (req, res) => {
   const { locationid, reviewid } = req.params;
   if (!locationid || !reviewid) {
-    return res
-      .status(404)
-      .json({
-        message: "Not found. locationid and  reviewid are both required",
-      });
+    return res.status(404).json({
+      message: "Not found. locationid and  reviewid are both required",
+    });
   }
   Loc.findById(locationid)
     .select("reviews")
