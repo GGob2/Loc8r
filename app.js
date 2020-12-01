@@ -31,7 +31,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'app_public', 'build')));
 app.use(passport.initialize());
 
-app.use('/api', apiRouter);
+
 // app.use('/', indexRouter);
 app.use('/users', usersRouter);
 // app.use('/api', apiRouter);
@@ -42,6 +42,7 @@ app.use('/api', (req, res, next) => {
   next();
 });
 
+app.use('/api', apiRouter);
 
 app.get(/(\/about)|(\/location\/[a-z0-9]{24})/, function(req, res, next) {
   res.sendFile(path.join(__dirname, 'app_public', 'build', 'index.html'));
