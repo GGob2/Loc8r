@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Loc8rDataService } from '../loc8r-data.service';
 import { Location, Review } from '../location';
+import { AuthenticationService } from '../authentication.service'; 
 @Component({
   selector: 'app-location-details',
   templateUrl: './location-details.component.html',
@@ -18,7 +19,8 @@ export class LocationDetailsComponent implements OnInit {
 
   public googleAPIKey: string= 'AIzaSyBTBlWYHaxm8k4XGybAnFimKYk-InmVj6o';
 
-  constructor(private loc8rDataService : Loc8rDataService) { }
+  constructor(private loc8rDataService : Loc8rDataService,
+    private authenticationService: AuthenticationService) { }
 
   public formVisible : boolean = false;
 
@@ -42,8 +44,20 @@ export class LocationDetailsComponent implements OnInit {
     this.newReview.reviewText = '';
     }
 
+    public isLoggedIn(): boolean {
+      return this.authenticationService.isLoggedIn();
+    }
+
+    public getUsername(): string {
+      const {name} = this.authenticationService.getCurrentUser();
+      return name ? name : 'Guest';
+    }
+
+
+
   public onReviewSubmit(): void {
     this.formError='';
+    this.newReview.author = this.getUsername();
       if(this.formIsValid()) {
         console.log(this.newReview);
         this.loc8rDataService.addReviewByLocationId(this.location._id,

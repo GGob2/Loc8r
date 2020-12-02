@@ -1,8 +1,9 @@
-import { Injectable } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Location, Review } from './location';
 import { User } from './user';
 import { AuthResponse } from './authresponse';
+import { BROWSER_STORAGE } from './storage';
 
 // import { runInThisContext } from 'vm';
 
@@ -10,7 +11,8 @@ import { AuthResponse } from './authresponse';
   providedIn: 'root',
 })
 export class Loc8rDataService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient,
+      @Inject(BROWSER_STORAGE) private storage: Storage) {}
 
   private apiBaseUrl = 'http://localhost:3000/api';
   // private apiBaseUrl = 'https://loc8rv2-2018250001.herokuapp.com/api';
@@ -41,8 +43,14 @@ export class Loc8rDataService {
     formData: Review
   ): Promise<Review> {
     const url: string = `${this.apiBaseUrl}/locations/${locationId}/reviews`;
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Authorization' : `Bearer ${this.storage.getItem('loc8r-token')}`
+      })
+    }
+    
     return this.http
-      .post(url, formData)
+      .post(url, formData, httpOptions)
       .toPromise()
       .then((response) => response as any)
       .catch(this.handleError);
