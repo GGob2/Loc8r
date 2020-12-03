@@ -12,7 +12,7 @@ export class FrameworkComponent implements OnInit {
   constructor(private authenticationService : AuthenticationService,
               private historyService : HistoryService) { }
 
-  ngOnInit(): void {
+  ngOnInit() {
   }
 
   public doLogout(): void {
@@ -20,6 +20,7 @@ export class FrameworkComponent implements OnInit {
   }
 
   public isLoggedIn(): boolean {
+    // console.log(this.authenticationService.isLoggedIn());
     return this.authenticationService.isLoggedIn();
   }
 

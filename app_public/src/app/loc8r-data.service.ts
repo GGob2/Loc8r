@@ -74,7 +74,7 @@ export class Loc8rDataService {
     return this.http
       .post(url, user)
       .toPromise()
-      .then((response) => response as AuthResponse)
+      .then(response => response as AuthResponse)
       .catch(this.handleError);
   }
 }

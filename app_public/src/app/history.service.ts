@@ -15,12 +15,12 @@ export class HistoryService {
       .subscribe((routerEvent: NavigationEnd) => {
         const url = routerEvent.urlAfterRedirects;
         this.urls = [...this.urls, url];
-      })
+      });
   }
 
   public getPreviousUrl(): string {
     const length = this.urls.length;
-    return length > 1 ? this.urls[length -2] : '/';
+    return length > 1 ? this.urls[length - 2] : '/';
   }
 
   public getLastNonLoginUrl(): string {
