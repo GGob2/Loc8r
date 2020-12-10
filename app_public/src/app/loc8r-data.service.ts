@@ -10,6 +10,7 @@ import { BROWSER_STORAGE } from './storage';
 @Injectable({
   providedIn: 'root',
 })
+
 export class Loc8rDataService {
   constructor(private http: HttpClient,
       @Inject(BROWSER_STORAGE) private storage: Storage) {}
@@ -47,12 +48,11 @@ export class Loc8rDataService {
       headers: new HttpHeaders({
         'Authorization' : `Bearer ${this.storage.getItem('loc8r-token')}`
       })
-    }
-    
+    };    
     return this.http
       .post(url, formData, httpOptions)
       .toPromise()
-      .then((response) => response as any)
+      .then(response => response as any)
       .catch(this.handleError);
   }
 

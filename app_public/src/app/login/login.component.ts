@@ -9,6 +9,7 @@ import { HistoryService } from '../history.service';
   styleUrls: ['./login.component.css'],
 })
 export class LoginComponent implements OnInit {
+  
   public formError: string = '';
 
   public credentials = {

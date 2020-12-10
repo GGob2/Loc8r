@@ -16,11 +16,12 @@ export class FrameworkComponent implements OnInit {
   }
 
   public doLogout(): void {
+    // console.log(this.authenticationService.logout());
     this.authenticationService.logout();
   }
 
   public isLoggedIn(): boolean {
-    // console.log(this.authenticationService.isLoggedIn());
+    // console.log(this.authenticationService.isLoggedIn());    -->   계속해서 false 리턴 
     return this.authenticationService.isLoggedIn();
   }
 

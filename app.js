@@ -41,13 +41,10 @@ app.use('/api', (req, res, next) => {
   Content-Type, Accept, Authorization');
   next();
 });
-
 app.use('/api', apiRouter);
-
 app.get(/(\/about)|(\/location\/[a-z0-9]{24})/, function(req, res, next) {
   res.sendFile(path.join(__dirname, 'app_public', 'build', 'index.html'));
 });
-
 
 app.use((err, req, res, next) => {
   if(err.name === 'UnauthorizedError') {

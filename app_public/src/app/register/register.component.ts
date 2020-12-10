@@ -49,9 +49,10 @@ export class RegisterComponent implements OnInit {
   private doRegister(): void {
     this.authenticationService
       .register(this.credentials)
-      .then(() => 
+      .then(() => {
         this.router.navigateByUrl(this.historyService.getLastNonLoginUrl())
-      )
+        
+      })
       .catch((message) => {
         this.formError = message;
       });

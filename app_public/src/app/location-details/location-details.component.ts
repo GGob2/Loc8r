@@ -9,7 +9,7 @@ import { AuthenticationService } from '../authentication.service';
 })
 export class LocationDetailsComponent implements OnInit {
 
-  @Input() location: any;
+  @Input() location: Location;
 
   public newReview = {
     author : '',
@@ -63,17 +63,13 @@ export class LocationDetailsComponent implements OnInit {
         this.loc8rDataService.addReviewByLocationId(this.location._id,
           this.newReview)
           .then((review: Review) => {
-            console.log('Review Saved', review);
             let reviews = this.location.reviews.slice(0);
             reviews.unshift(review);
             this.location.reviews = reviews;
             this.resetAndHideReviewForm();
-          })
-            
+          });            
       } else {
-        
-        this.formError = "All fileds required, please try again";
-        
+         this.formError = "All fileds required, please try again";
       }
     
   }

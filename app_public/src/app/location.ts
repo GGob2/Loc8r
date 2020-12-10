@@ -11,13 +11,13 @@ export class Review {
   reviewText: string;
 }
 export class Location {
-    _id: string;
-    name: string;
-    distance: number;
-    address: string;
-    rating: number;
-    facilities: string[];
-    reviews: Review[];
-    coords: number[];
-    openingTimes: openingTimes[];
+  _id: string;
+  name: string;
+  distance: number;
+  address: string;
+  rating: number;
+  facilities: string[];
+  reviews: Review[];
+  coords: number[];
+  openingTimes: openingTimes[];
   }
