@@ -3,12 +3,9 @@ import { BROWSER_STORAGE } from './storage';
 import { User } from './user';
 import { AuthResponse } from './authresponse';
 import { Loc8rDataService } from './loc8r-data.service';
-let isFirst:boolean;
-// let isItIn:boolean = false;
 @Injectable({
   providedIn: 'root',
 })
-
 export class AuthenticationService {
   constructor(
     @Inject(BROWSER_STORAGE) private storage: Storage,
@@ -24,7 +21,6 @@ export class AuthenticationService {
   }
 
   public login(user: User): Promise<any> {
-    isFirst = false;
     return this.loc8rDataService
       .login(user)
       .then((authResp: AuthResponse) => this.saveToken(authResp.token));
@@ -39,26 +35,24 @@ export class AuthenticationService {
   public logout(): void {
     this.storage.removeItem('loc8r-token');
   }
-  
+
   public isLoggedIn(): boolean {
     const token: string = this.getToken();
-    
+
     if (token) {
-      if(isFirst === false) {
       const payload = JSON.parse(atob(token.split('.')[1]));
-      JSON.parse(atob(token.split('.')[1])).exp = (Date.now() / 1000) + 10;
-      // payload.exp = 
-      
-      console.log(payload.exp , payload.exp > (Date.now() / 1000));
-      return payload.exp > (Date.now() / 1000);
+      // JSON.parse(atob(token.split('.')[1])).exp = (Date.now() / 1000) + 10;
+      // payload.exp =
+      console.log(payload.exp);
+      console.log(payload.exp, payload.exp > Date.now() / 1000);
+      return payload.exp > Date.now() / 1000;
     } else {
       return false;
     }
   }
-  }
 
   public getCurrentUser(): User {
-    if(this.isLoggedIn()) {
+    if (this.isLoggedIn()) {
       const token: string = this.getToken();
       const { email, name } = JSON.parse(atob(token.split('.')[1]));
       return { email, name } as User;
